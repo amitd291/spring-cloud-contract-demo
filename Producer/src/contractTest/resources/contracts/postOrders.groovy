@@ -11,7 +11,10 @@ Contract.make {
             contentType(MediaType.APPLICATION_JSON_VALUE)
         }
         body(
-                "value": 399.59
+                "value": value(
+                        producer(399.59),
+                        consumer("^(\\d{1,4}\\.+\\d*[1-9]|10{4}.0+)\$")
+                )
         )
     }
 
@@ -22,7 +25,7 @@ Contract.make {
         }
         body(
                 "id": $(anyUuid()),
-                "value": 399.59
+                "value": fromRequest().body('$.value')
         )
     }
 }

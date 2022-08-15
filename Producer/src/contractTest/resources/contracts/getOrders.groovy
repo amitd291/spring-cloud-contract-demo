@@ -14,12 +14,16 @@ Contract.make {
 
     response {
         status OK()
-        body([
-                "id"   : $(anyUuid()),
-                "value": $(anyDouble())
-        ])
         headers {
             contentType(MediaType.APPLICATION_JSON_VALUE)
+        }
+        body([[
+                "id"   : $(uuid()),
+                "value": $(anyDouble())
+        ]])
+        bodyMatchers {
+            jsonPath('$[*].id', byRegex(uuid()))
+            jsonPath('$[*].value', byRegex(aDouble()))
         }
     }
 }
