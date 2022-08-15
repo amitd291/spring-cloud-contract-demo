@@ -21,9 +21,9 @@ Contract.make {
             contentType(MediaType.APPLICATION_JSON_VALUE)
         }
         body '''\
-        {
-            "error": "invalid order value, accepted values between: 0.00 - 10,000.00"
-        }
-'''
+            {
+                "error": "invalid order value, accepted values between: 0.00 - 10,000.00"
+            }
+        '''
     }
 }

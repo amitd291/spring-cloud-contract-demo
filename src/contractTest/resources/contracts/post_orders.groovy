@@ -10,7 +10,9 @@ Contract.make {
         headers {
             contentType(MediaType.APPLICATION_JSON_VALUE)
         }
-        body "value": 399.59
+        body(
+                "value": 399.59
+        )
     }
 
     response {
