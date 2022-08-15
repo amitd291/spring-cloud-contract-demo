@@ -6,7 +6,7 @@ import org.springframework.http.MediaType
 Contract.make {
     request {
         method "GET"
-        url "v1/orders"
+        url "/v1/orders"
         headers {
             accept(MediaType.APPLICATION_JSON_VALUE)
         }

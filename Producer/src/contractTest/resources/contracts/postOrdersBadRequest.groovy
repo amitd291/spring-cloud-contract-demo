@@ -6,16 +6,20 @@ import org.springframework.http.MediaType
 Contract.make {
     request {
         method "POST"
-        url "v1/orders"
+        url "/v1/orders"
         headers {
             contentType(MediaType.APPLICATION_JSON_VALUE)
         }
         body([
                 "value": value(
                         producer(-25.50),
-                        consumer("^-(\\d*\\.\\d+)\$")
+                        consumer(notMatching("^(\\d{1,4}\\.+\\d*[1-9]|10{4}.0+)\$"))
                 )
         ])
+
+        bodyMatchers {
+            jsonPath('$.value', byRegex("^-(\\d*\\.\\d+)\$"))
+        }
     }
 
     response {
