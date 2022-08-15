@@ -31,11 +31,6 @@ dependencies {
     testImplementation("org.springframework.cloud:spring-cloud-starter-contract-verifier:$springVerifierVersion")
 }
 
-configurations.all {
-    exclude(group = "org.codehaus.groovy", module = "groovy")
-    exclude(group = "org.codehaus.groovy", module = "groovy-nio")
-}
-
 contracts {
     setTestFramework("JUNIT5")
     setPackageWithBaseClasses("com.dash.springcloudcontractdemo.contracts")
