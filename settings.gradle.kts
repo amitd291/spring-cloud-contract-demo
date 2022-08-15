@@ -1,17 +1,22 @@
 pluginManagement {
     repositories {
         mavenCentral()
-        mavenLocal()
         maven { url = uri("https://repo.spring.io/snapshot") }
         maven { url = uri("https://repo.spring.io/milestone") }
         maven { url = uri("https://repo.spring.io/release") }
-        gradlePluginPortal()
     }
 
     plugins {
-        val verifierVersion = extra["verifierVersion"]
+        val kotlinVersion: String by settings
+        val springBootVersion: String by settings
+        val springDepVersion: String by settings
+        val springVerifierVersion: String by settings
 
-        id("org.springframework.cloud.contract") version "$verifierVersion"
+        id("org.springframework.boot") version springBootVersion
+        id("io.spring.dependency-management") version springDepVersion
+        id("org.springframework.cloud.contract") version springVerifierVersion
+        kotlin("jvm") version kotlinVersion
+        kotlin("plugin.spring") version kotlinVersion
     }
 }
 

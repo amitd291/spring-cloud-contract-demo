@@ -1,16 +1,18 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
+val springCloudVersion: String by project
+val springVerifierVersion: String by project
+
 plugins {
-    id("org.springframework.boot") version "3.0.0-SNAPSHOT"
-    id("io.spring.dependency-management") version "1.0.13.RELEASE"
-//    id("groovy")
+    id("org.springframework.boot")
+    id("io.spring.dependency-management")
     id("org.springframework.cloud.contract")
-    kotlin("jvm") version "1.7.10"
-    kotlin("plugin.spring") version "1.7.10"
+    kotlin("jvm")
+    kotlin("plugin.spring")
 }
 
 group = "org.dash"
-version = "1.0-SNAPSHOT"
+version = "1.0-0"
 
 repositories {
     mavenCentral()
@@ -19,9 +21,6 @@ repositories {
     maven { url = uri("https://repo.spring.io/release") }
 }
 
-val springCloudVersion: String by project
-val verifierVersion: String by project
-
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
@@ -29,18 +28,12 @@ dependencies {
 
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.9.0")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
-    testImplementation("org.springframework.cloud:spring-cloud-starter-contract-verifier:$verifierVersion")
+    testImplementation("org.springframework.cloud:spring-cloud-starter-contract-verifier:$springVerifierVersion")
 }
 
 configurations.all {
     exclude(group = "org.codehaus.groovy", module = "groovy")
     exclude(group = "org.codehaus.groovy", module = "groovy-nio")
-}
-
-dependencyManagement {
-    imports {
-        mavenBom("org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}")
-    }
 }
 
 contracts {
