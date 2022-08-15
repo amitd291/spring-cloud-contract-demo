@@ -1,15 +1,14 @@
 # This is a basic workflow to help you get started with Actions
 
-name: CI
+name: Producer CI
 
 # Controls when the workflow will run
 on:
   push:
     branches: [ "main" ]
-    paths-ignore:
-      - '**.md'
-  pull_request:
-    branches: [ "main" ]
+    paths:
+      - "Producer/**"
+      - "!**.md"
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -25,12 +24,15 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-        
+
       - name: Setup Java 17
         uses: actions/setup-java@v3
         with:
           distribution: "corretto"
           java-version: "17"
-        
+
       - name: Gradle build and test
-        run: ./gradlew build
+        uses: gradle/gradle-build-action@v2
+        with:
+          argument: build
+          build-root-directory: "Producer"
