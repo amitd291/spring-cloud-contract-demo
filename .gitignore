@@ -1,0 +1,6 @@
+build/
+scratch/
+.gradle/
+.idea/
+*DS*Store*
+lib/
