@@ -17,10 +17,12 @@ Contract.make {
         headers {
             contentType(MediaType.APPLICATION_JSON_VALUE)
         }
-        body([[
-                "id"   : $(uuid()),
-                "value": $(anyDouble())
-        ]])
+        body([
+                [
+                        "id"   : $(anyUuid()),
+                        "value": $(anyDouble())
+                ]
+        ])
         bodyMatchers {
             jsonPath('$[*].id', byRegex(uuid()))
             jsonPath('$[*].value', byRegex(aDouble()))

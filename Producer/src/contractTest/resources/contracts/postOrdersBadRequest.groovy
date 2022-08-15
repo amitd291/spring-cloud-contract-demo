@@ -11,7 +11,10 @@ Contract.make {
             contentType(MediaType.APPLICATION_JSON_VALUE)
         }
         body([
-                "value": -25.50
+                "value": value(
+                        producer(-25.50),
+                        consumer("^-(\\d*\\.\\d+)\$")
+                )
         ])
     }
 
@@ -20,10 +23,8 @@ Contract.make {
         headers {
             contentType(MediaType.APPLICATION_JSON_VALUE)
         }
-        body '''\
-            {
+        body([
                 "error": "invalid order value, accepted values between: 0.00 - 10,000.00"
-            }
-        '''
+        ])
     }
 }

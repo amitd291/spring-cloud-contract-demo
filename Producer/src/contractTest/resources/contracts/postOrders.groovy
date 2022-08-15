@@ -10,12 +10,12 @@ Contract.make {
         headers {
             contentType(MediaType.APPLICATION_JSON_VALUE)
         }
-        body(
+        body([
                 "value": value(
                         producer(399.59),
                         consumer("^(\\d{1,4}\\.+\\d*[1-9]|10{4}.0+)\$")
                 )
-        )
+        ])
     }
 
     response {
@@ -23,9 +23,9 @@ Contract.make {
         headers {
             contentType(MediaType.APPLICATION_JSON_VALUE)
         }
-        body(
+        body([
                 "id": $(anyUuid()),
                 "value": fromRequest().body('$.value')
-        )
+        ])
     }
 }
