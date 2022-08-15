@@ -20,4 +20,4 @@ pluginManagement {
     }
 }
 
-rootProject.name = "SpringCloudContractDemo"
+rootProject.name = "Producer"
