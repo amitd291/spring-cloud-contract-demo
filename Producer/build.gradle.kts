@@ -1,8 +1,5 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
-val springCloudVersion: String by project
-val springVerifierVersion: String by project
-
 plugins {
     id("org.springframework.boot")
     id("io.spring.dependency-management")
@@ -20,6 +17,8 @@ repositories {
     maven { url = uri("https://repo.spring.io/milestone") }
     maven { url = uri("https://repo.spring.io/release") }
 }
+
+val springVerifierVersion: String by project
 
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web")
