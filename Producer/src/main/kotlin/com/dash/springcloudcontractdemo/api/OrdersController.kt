@@ -1,5 +1,8 @@
 package com.dash.springcloudcontractdemo.api
 
+import com.dash.springcloudcontractdemo.config.DemoConfig
+import org.slf4j.LoggerFactory
+import org.springframework.beans.factory.annotation.Value
 import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
@@ -8,18 +11,26 @@ import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
-import java.util.*
+import java.util.UUID
 
 @RestController
 @RequestMapping("v1/orders")
-class OrdersController {
-    @GetMapping(
-        produces = [MediaType.APPLICATION_JSON_VALUE]
-    )
-    fun getOrders() = listOf(
-        OrderDto(UUID.randomUUID(), 299.59),
-        OrderDto(UUID.randomUUID(), 599.99)
-    )
+class OrdersController(private val demoConfig: DemoConfig) {
+
+    @Value("\${demo-config.environment}")
+    private lateinit var environment: String
+
+    private final val log = LoggerFactory.getLogger(this.javaClass)
+
+    @GetMapping(produces = [MediaType.APPLICATION_JSON_VALUE])
+    fun getOrders(): List<OrderDto> {
+        log.info("demo-config.environment: $environment")
+        log.info("demoConfig.environment: ${demoConfig.environment}")
+        return listOf(
+            OrderDto(UUID.randomUUID(), 299.59),
+            OrderDto(UUID.randomUUID(), 599.99)
+        )
+    }
 
     @PostMapping(
         consumes = [MediaType.APPLICATION_JSON_VALUE],
