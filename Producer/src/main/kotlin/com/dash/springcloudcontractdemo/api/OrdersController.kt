@@ -1,6 +1,6 @@
 package com.dash.springcloudcontractdemo.api
 
-import com.dash.springcloudcontractdemo.config.DemoConfig
+import com.dash.springcloudcontractdemo.config.DemoConfigProps
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.http.HttpStatus
@@ -15,7 +15,9 @@ import java.util.UUID
 
 @RestController
 @RequestMapping("v1/orders")
-class OrdersController(private val demoConfig: DemoConfig) {
+class OrdersController(
+    private val demoConfigProps: DemoConfigProps
+) {
 
     @Value("\${demo-config.environment}")
     private lateinit var environment: String
@@ -24,8 +26,8 @@ class OrdersController(private val demoConfig: DemoConfig) {
 
     @GetMapping(produces = [MediaType.APPLICATION_JSON_VALUE])
     fun getOrders(): List<OrderDto> {
-        log.info("demo-config.environment: $environment")
-        log.info("demoConfig.environment: ${demoConfig.environment}")
+        log.info("Environment config value using @Value: $environment")
+        log.info("Environment config value using @ConfigurationProperties: ${demoConfigProps.environment}")
         return listOf(
             OrderDto(UUID.randomUUID(), 299.59),
             OrderDto(UUID.randomUUID(), 599.99)
